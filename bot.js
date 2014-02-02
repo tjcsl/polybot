@@ -30,7 +30,7 @@ bot.db = db;
 bot.config = config;
 bot.modules = {};
 
-// Do module loading
+// Do module loading magic. 
 fs.readdirSync('./modules').forEach(function(f){
     f = f.replace('.js', '');
     console.log("loading module " + f);
