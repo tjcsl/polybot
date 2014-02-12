@@ -1,4 +1,4 @@
-var gh = require('github');
+var gh = require('node-github');
 
 module.exports.register = function(bot) {
     var issuere = /.*([a-zA-Z0-9]+)\/([a-zA-Z0-9])#([0-9]+).*/
