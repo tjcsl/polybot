@@ -13,6 +13,8 @@
   "license": "CC-Non-Commercial-Attribution-Share-Alike",
   "dependencies": {
     "irc": "~0.3.6",
-    "pg": "~2.11.1"
+    "pg": "~2.11.1",
+    "node-github": "0.0.3",
+    "cheerio": "~0.13.1"
   }
 }
