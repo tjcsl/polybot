@@ -28,4 +28,5 @@ module.exports.register = function(bot) {
             });
         });
     });
+    return "Say a URL in a public channel, and this module will reply with the title.";
 }

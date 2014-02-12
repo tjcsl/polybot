@@ -13,5 +13,5 @@ module.exports.register = function(bot) {
                 console.log(JSON.stringify(r));
             });
         }
-    }
+    });
 }
