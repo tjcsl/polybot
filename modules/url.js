@@ -23,7 +23,7 @@ module.exports.register = function(bot) {
         urls.forEach(function(f) {
             download(f, function(data) {
                 page = cheerio.load(data);
-                var title = page('title').text().replace('\n', ' ');
+                var title = page('title').text().replace("\n", " ");
                 bot.say(chan, "** " + title)
             });
         });
