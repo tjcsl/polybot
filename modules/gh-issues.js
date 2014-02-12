@@ -5,6 +5,7 @@ module.exports.register = function(bot) {
     bot.on('message#', function(nick, chan, text) {
         var github = new gh({version: "3.0.0"});
         var matches = text.match(issuere);
+        console.log(matches);
         if(matches !== null){
             var user = matches[0];
             var repo = matches[1];
