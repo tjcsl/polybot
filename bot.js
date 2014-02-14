@@ -12,7 +12,8 @@ var botcfg = {
     userName: config.sasluser,
     password: config.nspass,
     realName: "polybot v0.1, by fwilson",
-    channels: config.channels
+    channels: config.channels,
+    port: 8000
 };
 
 console.log("attaching to DB");
