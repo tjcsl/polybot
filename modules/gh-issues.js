@@ -10,7 +10,10 @@ module.exports.register = function(bot) {
             var repo = matches[2];
             var issue = parseInt(matches[3]);
             github.issues.getRepoIssue({user: user, repo: repo, number: issue}, function(e, r){
-                if(e) bot.say(chan, "** Issue not found");
+                if(e) {
+                    bot.say(chan, "** Issue not found");
+                    return;
+                }
                 bot.say(chan, "** " + repo + " #" + issue + ": " + r.title);
             });
         }
