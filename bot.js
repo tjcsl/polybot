@@ -2,7 +2,7 @@ console.log("polybot starting up");
 
 // Load everything we need
 var config = require('./config');
-var irc = require('irc');
+var irc = require('fwilson-irc-fork');
 var pg = require('pg').native;
 var fs = require('fs');
 
