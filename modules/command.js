@@ -18,6 +18,7 @@ module.exports.register = function(bot) {
     bot.on('message', function(nick, to, text, message) {
         var reply_dest = (to == bot.config.nick ? nick : to);
         var reply = function(t) { bot.say(reply_dest, t); }
+        var data = {bot: bot, sender: nick, chan: to};
         if(text.indexOf(bot.config.cmdchar) == 0) {
             text = text.slice(1).split(" ");
             if(Object.keys(commands).indexOf(text[0]) != -1) {
@@ -35,12 +36,12 @@ module.exports.register = function(bot) {
                                     return;
                                 }
                             }
-                            cmd.callback(reply, text);
+                            cmd.callback(reply, data, text);
                         }
                     });
                 }
                 else {
-                    cmd.callback(reply, text.slice(1));
+                    cmd.callback(reply, data, text.slice(1));
                 }
             }
         }
