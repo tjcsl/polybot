@@ -19,32 +19,34 @@ module.exports.register = function(bot) {
         var reply_dest = (to == bot.config.nick ? nick : to);
         var reply = function(t) { bot.say(reply_dest, t); }
         var data = {bot: bot, sender: nick, chan: to};
-        if(text.indexOf(bot.config.cmdchar) == 0) {
-            text = text.slice(1).split(" ");
-            if(Object.keys(commands).indexOf(text[0]) != -1) {
-                var cmd = commands[text[0]];
-                if(cmd.permission){
-                    bot.hasAccess(message.user, message.host, to, cmd.permission, function(a) {
-                        if(!a) {
-                            bot.say(nick, "You don't have the '" + cmd.permission + "' permission.");
-                        }
-                        else {
-                            text = text.slice(1);
-                            if(cmd.nArgs) {
-                                if(text.length != cmd.nArgs) {
-                                    bot.say(nick, "That command requires " + cmd.nArgs + " arguments. You supplied " + text.length + ".");
-                                    return;
-                                }
+        if(text.indexOf(bot.config.nick + ": ") == 0) text = text.replace(bot.config.nick + ": ", "");
+        else if(text.indexOf(bot.config.nick + ", ") == 0) text = text.replace(bot.config.nick + ", ", "");
+        else if(text.indexOf(bot.config.cmdchar) == 0) text = text.replace(bot.config.cmdchar, "");
+        else if(to == bot.config.nick) text = text;
+        else return;
+        text = text.split(" ");
+        if(Object.keys(commands).indexOf(text[0]) != -1) {
+            var cmd = commands[text[0]];
+            if(cmd.permission){
+                bot.hasAccess(message.user, message.host, to, cmd.permission, function(a) {
+                    if(!a) {
+                        bot.say(nick, "You don't have the '" + cmd.permission + "' permission.");
+                    }
+                    else {
+                        text = text.slice(1);
+                        if(cmd.nArgs) {
+                            if(text.length != cmd.nArgs) {
+                                bot.say(nick, "That command requires " + cmd.nArgs + " arguments. You supplied " + text.length + ".");
+                                return;
                             }
-                            cmd.callback(reply, data, text);
                         }
-                    });
-                }
-                else {
-                    cmd.callback(reply, data, text.slice(1));
-                }
+                        cmd.callback(reply, data, text);
+                    }
+                });
+            }
+            else {
+                cmd.callback(reply, data, text.slice(1));
             }
         }
     });
-}
-
+};
