@@ -6,9 +6,10 @@ module.exports.commands = [
             // This is a "multi-command"
             var cmd = args[0];
             args = args.slice(1);
-            switch(args[0]) {
+            switch(cmd) {
                 case "nick":
-                    data.bot.send("NICK", args[1]);
+                    data.bot.send("NICK", args[0]);
+                    data.bot.config.nick = args[0];
                     break;
                 case "die":
                     data.bot.send("QUIT", "Killed by an admin.");
