@@ -2,7 +2,7 @@ function do_add_acl(db, chan, uh, access) {
     uh = uh.split("@");
     var username = uh[0], host = uh[1];
     var query = {
-        text: "INSERT INTO acl (username, host, channel, access) VALUES ($1, $2, $3, $4)"
+        text: "INSERT INTO acl (username, host, channel, access) VALUES ($1, $2, $3, $4)",
         values: [username, host, chan, access]
     };
     db.query(query);
@@ -13,7 +13,7 @@ function do_del_acl(db, chan, uh, access) {
     var username = uh[0], host = uh[1];
     var query = {
         text: "DELETE FROM acl WHERE username=$1 AND host=$2 AND channel=$3 AND access LIKE $4",
-        values: [username, host, chan, access];
+        values: [username, host, chan, access]
     };
     db.query(query);
 }
