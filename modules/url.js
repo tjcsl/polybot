@@ -10,6 +10,7 @@ module.exports.register = function(bot) {
             request(f, function(error, response, body){
                 if(error || response.statusCode != 200) return;
                 var title = cheerio.load(body)('title').text().replace(/\n/g, " ").trim();
+                if(title.length > 100) title = title.slice(0, 97) + "...";
                 bot.say(chan, "** " + title)
             });
         });
