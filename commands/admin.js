@@ -1,4 +1,4 @@
-modules.exports.commands = [
+module.exports.commands = [
     {
         name: "admin",
         permission: "admin",
