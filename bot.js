@@ -31,14 +31,6 @@ bot.db = db;
 bot.config = config;
 bot.modules = {};
 
-bot.on("registered", function(message) {
-    console.log("We have liftoff! Connected to the IRC server.");
-});
-
-bot.on("error", function(message) {
-    console.warn(message);
-});
-
 // Do module loading magic. 
 fs.readdirSync('./modules').forEach(function(f){
     f = f.replace('.js', '');
