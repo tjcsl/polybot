@@ -1,5 +1,6 @@
 var cheerio = require('cheerio');
 var request = require('request');
+var googl = require('goo.gl');
 
 module.exports.register = function(bot) {
     var urlre = /https?:\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/gi
@@ -11,7 +12,10 @@ module.exports.register = function(bot) {
                 if(error || response.statusCode != 200) return;
                 var title = cheerio.load(body)('title').text().replace(/\n/g, " ").trim();
                 if(title.length > 100) title = title.slice(0, 97) + "...";
-                bot.say(chan, "** " + title)
+                googl.shorten(f, function(surl) {
+                    if(surl.id == f) surl.id = "";
+                    bot.say(chan, "** " + title + " (" + surl.id + ")");
+                });
             });
         });
     });

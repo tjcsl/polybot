@@ -16,6 +16,7 @@
     "node-github": "0.0.3",
     "cheerio": "~0.13.1",
     "request": "~2.33.0",
-    "fwilson-irc-fork": "~0.3.6"
+    "fwilson-irc-fork": "~0.3.6",
+    "goo.gl": "0.0.2"
   }
 }
