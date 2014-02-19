@@ -21,8 +21,9 @@ module.exports.register = function(bot) {
         var data = {bot: bot, sender: nick, chan: to, msg: message};
         if(text.indexOf(bot.config.nick + ": ") == 0) text = text.replace(bot.config.nick + ": ", "");
         else if(text.indexOf(bot.config.nick + ", ") == 0) text = text.replace(bot.config.nick + ", ", "");
-        else if(text.indexOf(bot.config.cmdchar) == 0) text = text.replace(bot.config.cmdchar, "");
+        else if(text.indexOf(bot.config.cmdprefix) == 0) text = text.replace(bot.config.cmdprefix, "");
         else if(to == bot.config.nick) text = text;
+//      else if(Object.keys(bot.channelConfig).indexOf(to) != -1 && text.indexOf(bot.channelConfig[to].cmdprefix) == 0) text = text.replace(bot.channelConfig[to].cmdprefix, "");
         else return;
         text = text.split(" ");
         if(Object.keys(commands).indexOf(text[0]) != -1) {
