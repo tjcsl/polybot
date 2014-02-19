@@ -13,7 +13,7 @@ module.exports.register = function(bot) {
                 var title = cheerio.load(body)('title').text().replace(/\n/g, " ").trim();
                 if(title.length > 100) title = title.slice(0, 97) + "...";
                 googl.shorten(f, function(surl) {
-                    if(surl.id == f) surl.id = "already shortened";
+                    if(!surl) return bot.say(chan, "** " + title);
                     bot.say(chan, "** " + title + " -- " + surl.id);
                 });
             });
