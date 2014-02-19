@@ -24,9 +24,14 @@ module.exports.commands = [
         nArgs: 3,
         permission: "aclmod",
         callback: function(reply, data, args) {
-            if(args[0] == "add") do_add_acl(data.bot.db, data.chan, args[1], args[2]);
-            else if(args[0] == "del") do_del_acl(data.bot.db, data.chan, args[1], args[2]);
-            reply("Success!");
+            try {
+                if(args[0] == "add") do_add_acl(data.bot.db, data.chan, args[1], args[2]);
+                else if(args[0] == "del") do_del_acl(data.bot.db, data.chan, args[1], args[2]);
+                reply("Success!");
+            }
+            catch(e) {
+                reply("Failure :(");
+            }
         }
     },
     {
@@ -35,10 +40,15 @@ module.exports.commands = [
         permission: "aclmod",
         callback: function(reply, data, args) {
             data.bot.hasAccess(data.msg.user, data.msg.host, "global", "aclmod", function(a){
-                if(!a) return reply("You are not allowed to make global access list modifications!");
-                if(args[0] == "add") do_add_acl(data.bot.db, "global", args[1], args[2]);
-                else if(args[0] == "del") do_del_acl(data.bot.db, "global", args[1], args[2]);
-                reply("Success!");
+                try {
+                    if(!a) return reply("You are not allowed to make global access list modifications!");
+                    if(args[0] == "add") do_add_acl(data.bot.db, "global", args[1], args[2]);
+                    else if(args[0] == "del") do_del_acl(data.bot.db, "global", args[1], args[2]);
+                    reply("Success!");
+                }
+                catch(e) {
+                    reply("Failure :(");
+                }
             });
         }
     }
