@@ -21,7 +21,12 @@ module.exports.commands = [
                     args.forEach(function(c){data.bot.part(c);});
                     break;
                 case "eval":
-                    reply(eval(args.join(" ")));
+                    try {
+                        reply(eval(args.join(" ")));
+                    }
+                    catch(e) {
+                        reply("Whoops! " + e);
+                    }
                     break;
                 default:
                     reply("What?");
