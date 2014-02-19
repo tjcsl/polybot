@@ -14,7 +14,7 @@ module.exports.register = function(bot) {
                 if(title.length > 100) title = title.slice(0, 97) + "...";
                 googl.shorten(f, function(surl) {
                     if(surl.id == f) surl.id = "";
-                    bot.say(chan, "** " + title + " (" + surl.id + ")");
+                    bot.say(chan, "** " + title + " -- " + surl.id);
                 });
             });
         });
