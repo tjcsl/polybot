@@ -20,6 +20,9 @@ module.exports.commands = [
                 case "part":
                     args.forEach(function(c){data.bot.part(c);});
                     break;
+                case "eval":
+                    reply(eval(args.join(" ")));
+                    break;
                 default:
                     reply("What?");
                     break;
