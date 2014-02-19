@@ -8,12 +8,12 @@ var fs = require('fs');
 
 // Set up all the things
 var botcfg = {
-    sasl: true,
-    userName: config.sasluser,
-    password: config.nspass,
+    sasl: config.sasl,
+    userName: config.username,
+    password: config.password,
     realName: "polybot v0.1, by fwilson",
     channels: config.channels,
-    port: 8000
+    port: config.port
 };
 
 console.log("attaching to DB");
