@@ -18,5 +18,13 @@ module.exports.commands = [
         callback: function(reply, data, args) {
             data.bot.send("MODE", data.chan, "+v", data.sender);
         }
+    },
+    {
+        name: "devoice",
+        nArgs: 0,
+        permission: "voice",
+        callback: function(reply, data, args) {
+            data.bot.send("MODE", data.chan, "-v", data.sender);
+        }
     }
 ];
