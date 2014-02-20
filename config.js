@@ -13,7 +13,8 @@ config.cmdchar = process.env.CMDCHAR || "!";
 config.defaultChannelConfig = {
     globalCmdcharAllowed: true,
     cmdcharAllowed: true,
-    cmdchar: config.cmdchar
+    cmdchar: config.cmdcharm
+    snarfLinks: true
 };
 // ...and ends here
 console.log("configuration loaded");
