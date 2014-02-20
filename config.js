@@ -14,7 +14,8 @@ config.defaultChannelConfig = {
     globalCmdcharAllowed: true,
     cmdcharAllowed: true,
     cmdchar: config.cmdchar,
-    snarfLinks: true
+    snarfLinks: true,
+    defaultAccess: []
 };
 // ...and ends here
 console.log("configuration loaded");
