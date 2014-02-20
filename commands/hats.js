@@ -12,6 +12,14 @@ module.exports.commands = [
         }
     },
     {
+        name: "deop",
+        nArgs: 0,
+        permission: "op",
+        callback: function(reply, data, args) {
+            data.bot.send("MODE", data.chan, "-o", data.sender);
+        }
+    },
+    {
         name: "voice",
         nArgs: 0,
         permission: "voice",
