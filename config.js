@@ -3,11 +3,12 @@ console.log("loading configuration");
 // Configuration starts here
 config.sasl = false;
 config.nick = process.env.NICK || "infinigon";
-config.channels = process.env.CHANNELS ? process.env.CHANNELS.split(",") : ["#tjcsl-polybot"];
+config.channels = process.env.CHANNELS ? process.env.CHANNELS.split(",") : ["#testing"];
 config.password = process.env.NICKSERV || "";
+config.password_required = (process.env.PWREQUIRED != undefined);
 config.username = process.env.SASLUSER || "polybots";
 config.server = process.env.SERVER || "chat.freenode.net";
-config.port = process.env.IRCPORT || 8000;
+config.port = process.env.IRCPORT || 6667;
 config.cmdchar = process.env.CMDCHAR || "!";
 
 config.defaultChannelConfig = {

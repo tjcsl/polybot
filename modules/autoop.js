@@ -1,3 +1,4 @@
+module.exports.dependencies = ["per-channel-config"];
 module.exports.register = function(bot){
     bot.on('join', function(channel, nick, message){
         bot.hasAccess(message.user, message.host, channel, 'autoop', function(a){
