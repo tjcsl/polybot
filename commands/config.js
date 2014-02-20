@@ -50,7 +50,7 @@ module.exports.commands = [
             var channel = args[0];
             var key = args[1];
             if(data.bot.channelConfig[channel])
-                reply(typeof(data.bot.channelConfig[channel][key] + ": " + data.bot.channelConfig[channel][key]);
+                reply(typeof(data.bot.channelConfig[channel][key] + ": " + data.bot.channelConfig[channel][key]));
             else
                 reply("Channel does not exist in the configuration.");
         }
