@@ -41,12 +41,22 @@ module.exports.register = function(bot) {
                                 return;
                             }
                         }
-                        cmd.callback(reply, data, text);
+                        try {
+                            cmd.callback(reply, data, text);
+                        }
+                        catch(e) {
+                            reply(e);
+                        }
                     }
                 });
             }
             else {
-                cmd.callback(reply, data, text.slice(1));
+                try {
+                    cmd.callback(reply, data, text.slice(1));
+                }
+                catch(e) {
+                    reply(e);
+                }
             }
         }
     });

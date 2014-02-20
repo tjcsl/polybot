@@ -1,7 +1,6 @@
 module.exports.commands = [
     {
         name: "quiet",
-        nArgs: 1,
         permission: "op",
         callback: function(reply, data, args) {
             var person = args[0];
@@ -15,7 +14,6 @@ module.exports.commands = [
     },
     {
         name: "unquiet",
-        nArgs: 1,
         permission: "op",
         callback: function(reply, data, args) {
             var person = args[0];
