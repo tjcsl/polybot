@@ -10,6 +10,7 @@ function doParseValue(v) {
 
 module.exports.register = function(bot, dontAttachListeners) {
     bot.channelConfig = {};
+    bot.parseConfigValue = doParseValue;
     // Load settings from the DB
     bot.db.query('SELECT * FROM config', function(e, r) {
         r.rows.forEach(function(data) {
