@@ -7,6 +7,7 @@ module.exports.register = function(bot) {
     bot.on("message#", function(nick, chan, text) {
         var urls = text.match(urlre);
         if(!urls) return;
+        if(!bot.channelConfig[chan].snarfLinks) return;
         urls.forEach(function(f) {
             request(f, function(error, response, body){
                 if(error || response.statusCode != 200) return;
