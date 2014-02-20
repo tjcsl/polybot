@@ -13,7 +13,7 @@ config.cmdchar = process.env.CMDCHAR || "!";
 config.defaultChannelConfig = {
     globalCmdcharAllowed: true,
     cmdcharAllowed: true,
-    cmdchar: config.cmdcharm
+    cmdchar: config.cmdchar,
     snarfLinks: true
 };
 // ...and ends here
