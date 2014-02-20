@@ -5,7 +5,7 @@ module.exports.commands = [
         callback: function(reply, data, args) {
             var person = args[0];
             data.bot.whois(person, function(result) {
-                var toQuiet = "*!*" + result.user + "@" + result.host;
+                var toQuiet = "*!" + result.user + "@" + result.host;
                 if(!data.bot.quietCache) data.bot.quietCache = {};
                 data.bot.quietCache[person] = toQuiet;
                 data.bot.send("MODE", data.chan, "+q", toQuiet);
