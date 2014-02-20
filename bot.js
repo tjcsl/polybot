@@ -35,6 +35,7 @@ bot.modules = {};
 fs.readdirSync('./modules').forEach(function(f){
     f = f.replace('.js', '');
     console.log("loading module " + f);
-    bot.modules[f] = require('./modules/' + f).register(bot);
+    bot.modules[f] = require('./modules/' + f);
+    bot.modules[f].register(bot);
     console.log("done loading " + f);
 });
