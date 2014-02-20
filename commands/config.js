@@ -5,7 +5,7 @@ module.exports.commands = [
         callback: function(reply, data, args) {
             var channel = args[0];
             var key = args[1];
-            var value = data.bot.parseConfigValue(args[2]);
+            var value = args[2];
             var delquery = {
                 text: "DELETE FROM config WHERE channel=$1 AND key=$2",
                 values: [channel, key]
@@ -22,7 +22,7 @@ module.exports.commands = [
                 else reply(e);
             });
             if(!data.bot.channelConfig[channel]) data.bot.channelConfig[channel] = {};
-            data.bot.channelConfig[channel][key] = value;
+            data.bot.channelConfig[channel][key] = data.bot.parseConfigValue(value);
         }
     },
     {
