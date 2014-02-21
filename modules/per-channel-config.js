@@ -1,3 +1,4 @@
+module.exports.dependencies = ["autoop"];
 function doParseValue(v) {
     // This function parses things like:
     // list:a,b,c,d,e
@@ -25,6 +26,7 @@ module.exports.register = function(bot, dontAttachListeners) {
     bot.channelConfig = {};
     bot.parseConfigValue = doParseValue;
     setDefault(bot, "global");
+    setDefault(bot, bot.config.nick);
     // Load settings from the DB
     bot.db.query('SELECT * FROM config', function(e, r) {
         r.rows.forEach(function(data) {
