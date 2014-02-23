@@ -38,3 +38,7 @@ module.exports.commands = [
 
 ## Database
 The bot exposes a database as `bot.db`. It is a `Client` instance (part of the node `pg` library). See `acl.js` for an example of how to use the DB.
+
+## Actually setting up the bot
+1. Set up PostgreSQL.
+2. Set the DATABASE_URL environment variable to be in the form "postgres://user:password@host
