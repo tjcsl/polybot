@@ -8,7 +8,6 @@ module.exports.commands = [
     {
         name: "hello",
         nArgs: 1,
-        permission: "sayHi",
         callback: function(reply, data, args) {
             reply("Hello, " + args[0] + "!");
         }

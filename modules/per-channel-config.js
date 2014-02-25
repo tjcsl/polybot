@@ -31,7 +31,7 @@ module.exports.register = function(bot, dontAttachListeners) {
     bot.db.query('SELECT * FROM config', function(e, r) {
         if(!r) return;
         r.rows.forEach(function(data) {
-        if(!(data.channel in bot.channelConfig)) bot.channelConfig[data.channel] = {};
+            if(!(data.channel in bot.channelConfig)) bot.channelConfig[data.channel] = {};
             bot.channelConfig[data.channel][data.key] = doParseValue(data.value);
         });
     });
