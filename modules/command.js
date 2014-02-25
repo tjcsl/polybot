@@ -17,7 +17,10 @@ function doChaining(commands, text, data, message) {
         var command = commands[match[0]];
         match = match.slice(1);
         console.log("args: " + match);
-        if(command.permission) return;
+
+        if(command.permission) return; // commands that require permission
+                                       // can't be done because I'm lazy
+
         var reply = function(t) {
             text = text.replace(old, t);
             console.log("got a reply: " + t);
@@ -54,12 +57,7 @@ module.exports.register = function(bot) {
         else if(text.indexOf(bot.config.cmdchar) == 0 && bot.channelConfig[to].globalCmdcharAllowed) text = text.replace(bot.config.cmdchar, "");
         else if(text.indexOf(bot.channelConfig[to].cmdchar) == 0 && bot.channelConfig[to].cmdcharAllowed) text = text.replace(bot.channelConfig[to].cmdchar, "");
         else return;
-        /**
-         * Now that we have _just_ the command (i.e. "tell ChanServ hello"
-         * instead of "infinigon: tell..." we should do substitutions:
-         * tell ChanServ [ping] will tell ChanServ "Pong!"
-         */
-        text = doChaining(commands, text, data, message);
+        // text = doChaining(commands, text, data, message);
         text = text.split(" ");
         if(Object.keys(commands).indexOf(text[0]) != -1) {
             var cmd = commands[text[0]];
