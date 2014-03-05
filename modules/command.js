@@ -37,8 +37,11 @@ function cmdhandler(nick, to, text, message) {
     if(text.indexOf(bot.config.nick + ": ") == 0) text = text.replace(bot.config.nick + ": ", "");
     else if(text.indexOf(bot.config.nick + ", ") == 0) text = text.replace(bot.config.nick + ", ", "");
     else if(to == bot.config.nick) text = text;
-    else if(text.indexOf(bot.config.cmdchar) == 0 && bot.channelConfig[to].globalCmdcharAllowed) text = text.replace(bot.config.cmdchar, "");
-    else if(text.indexOf(bot.channelConfig[to].cmdchar) == 0 && bot.channelConfig[to].cmdcharAllowed) text = text.replace(bot.channelConfig[to].cmdchar, "");
+    else if(bot.channelConfig[to]){
+        if (text.indexOf(bot.config.cmdchar) == 0 && bot.channelConfig[to].globalCmdcharAllowed) text = text.replace(bot.config.cmdchar, "");
+        else if(text.indexOf(bot.channelConfig[to].cmdchar) == 0 && bot.channelConfig[to].cmdcharAllowed) text = text.replace(bot.channelConfig[to].cmdchar, "");
+        else return;
+    }
     else return;
     // text = doChaining(commands, text, data, message);
     text = text.split(" ");
