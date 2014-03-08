@@ -10,14 +10,17 @@ function doParseValue(v) {
 }
 
 function setDefault(bot, channel){
+    console.log('setting default keys on ' + channel);
     if(channel in bot.channelConfig) {
         for(key in bot.config.defaultChannelConfig) {
             if (!(key in bot.channelConfig[channel])) {
+                console.log('setting ' + channel + ',' + key);
                 bot.channelConfig[channel][key] = bot.config.defaultChannelConfig[key];
             }
         }
     }
     else {
+        console.log('channel is not in config, copying default config');
         bot.channelConfig[channel] = bot.config.defaultChannelConfig;
     }
 }
