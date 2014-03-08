@@ -27,7 +27,7 @@ function doChaining(commands, text, data, message) {
             done = true;
         };
         command.callback(reply, data, match);
-        while(!done) {}
+        while(!done) {console.log(text); require('sleep').usleep(100);}
     });
     console.log('k returning ' + text);
     return text;
