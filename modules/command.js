@@ -20,13 +20,16 @@ function doChaining(commands, text, data, message) {
 
         if(command.permission) return; // commands that require permission
         // can't be done because I'm lazy
-
+        var done = false;
         var reply = function(t) {
             text = text.replace(old, t);
             console.log("got a reply: " + t);
+            done = true;
         };
         command.callback(reply, data, match);
+        while(!done) {console.log('le busy loop');}
     });
+    console.log('k returning ' + text);
     return text;
 }
 
