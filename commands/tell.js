@@ -6,7 +6,6 @@ module.exports.commands = [
             var dest = args[0];
             var text = args.slice(1).join(" ");
             data.bot.say(dest, text);
-            reply("OK, I told " + dest + ".");
         }        
     }
 ];
