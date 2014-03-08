@@ -27,7 +27,7 @@ function doChaining(commands, text, data, message) {
             done = true;
         };
         command.callback(reply, data, match);
-        while(!done) {console.log('le busy loop');}
+        while(!done) {}
     });
     console.log('k returning ' + text);
     return text;
