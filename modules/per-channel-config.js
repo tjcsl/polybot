@@ -37,6 +37,9 @@ module.exports.register = function(bot, dontAttachListeners) {
             console.log("storing " + data.channel + "," + data.key + " = " + data.value);
             if(!(data.channel in bot.channelConfig)) bot.channelConfig[data.channel] = {};
             bot.channelConfig[data.channel][data.key] = doParseValue(data.value);
+            console.log("new config for channel:");
+            for(key in bot.channelConfig[data.channel])
+                console.log("\t" + key + ":" + bot.channelConfig[data.channel][key]);
         });
     });
     if(!dontAttachListeners){
