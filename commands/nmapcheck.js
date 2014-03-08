@@ -3,7 +3,7 @@ function run(cmd, args, callback) {
     var command = spawn(cmd, args);
     var result = '';
     command.stdout.on('data', function(d) { result += d.toString(); });
-    command.on('close', function() { return callback(result); }
+    command.on('close', function() { return callback(result); });
 }
 
 module.exports.commands = [
