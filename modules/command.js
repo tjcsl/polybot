@@ -50,7 +50,7 @@ module.exports.register = function(bot) {
             else return;
         }
         else return;
-        text = doChaining(commands, text, data, message);
+        //text = doChaining(commands, text, data, message);
         text = text.split(" ");
         if(Object.keys(commands).indexOf(text[0]) != -1) {
             var cmd = commands[text[0]];
