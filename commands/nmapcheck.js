@@ -14,7 +14,7 @@ module.exports.commands = [
             if(args[0].indexOf('*') != -1 || args[0].indexOf("/") != -1) {
                 return reply("NO :>");
             }
-            run("/usr/bin/nmap", ["-Pn", "-p", "1080,8080", args[0]], function(r) {
+            run("/usr/bin/nmap", ["-Pn", "-p", "1080,8080", args[0]], function(result) {
                 if(result.indexOf("1080/tcp open") != -1) {
                     if (result.indexOf("8080/tcp open") != -1) {
                         reply("Looks like we've got ourselves a bot.");
