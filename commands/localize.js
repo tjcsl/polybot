@@ -1,6 +1,7 @@
 module.exports.commands = [
     {
         name: "localize",
+        permission: "admin",
         callback: function(reply, data, args) {
             var delquery = {
                 text: "DELETE FROM localizations WHERE key=$1",
