@@ -9,12 +9,12 @@ module.exports.commands = [
             };
             var insquery = {
                 text: "INSERT INTO localizations VALUES ($1, $2)",
-                values: [args[0], args.slice(1).join(" ")];
+                values: [args[0], args.slice(1).join(" ")]
             };
             data.bot.db.query(delquery, function(e) {
                 if(!e) data.bot.db.query(insquery, function(e) {
                     if(!e) reply("Configuration modified.");
-                    else reply (e)
+                    else reply (e);
                 });
                 else reply(e);
             });
