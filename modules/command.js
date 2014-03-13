@@ -39,7 +39,7 @@ module.exports.register = function(bot) {
 
     function cmdhandler(nick, to, text, message) {
         var reply_dest = (to == bot.config.nick ? nick : to);
-        var reply = function(t) { bot.say(reply_dest, t); }
+        var reply = function(t) { bot.say(reply_dest, t.toString()); }
         var data = {bot: bot, sender: nick, chan: to, msg: message};
         if(text.indexOf(bot.config.nick + ": ") == 0) text = text.replace(bot.config.nick + ": ", "");
         else if(text.indexOf(bot.config.nick + ", ") == 0) text = text.replace(bot.config.nick + ", ", "");
