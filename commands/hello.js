@@ -7,7 +7,6 @@
 module.exports.commands = [
     {
         name: "hello",
-        nArgs: 1,
         callback: function(reply, data, args) {
             reply("Hello, " + args[0] + "!");
         }

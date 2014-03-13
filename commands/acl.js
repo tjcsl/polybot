@@ -21,7 +21,6 @@ function do_del_acl(db, chan, uh, access) {
 module.exports.commands = [
     {
         "name": "acl",
-        nArgs: 3,
         permission: "aclmod",
         callback: function(reply, data, args) {
             try {
@@ -36,7 +35,6 @@ module.exports.commands = [
     },
     {
         "name": "gacl",
-        nArgs: 3,
         permission: "aclmod",
         callback: function(reply, data, args) {
             data.bot.hasAccess(data.msg.user, data.msg.host, "global", "aclmod", function(a){

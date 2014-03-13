@@ -5,7 +5,6 @@
 module.exports.commands = [
     {
         name: "op",
-        nArgs: 0,
         permission: "op",
         callback: function(reply, data, args) {
             data.bot.send("MODE", data.chan, "+o", data.sender);
@@ -13,7 +12,6 @@ module.exports.commands = [
     },
     {
         name: "deop",
-        nArgs: 0,
         permission: "op",
         callback: function(reply, data, args) {
             data.bot.send("MODE", data.chan, "-o", data.sender);
@@ -21,7 +19,6 @@ module.exports.commands = [
     },
     {
         name: "voice",
-        nArgs: 0,
         permission: "voice",
         callback: function(reply, data, args) {
             data.bot.send("MODE", data.chan, "+v", data.sender);
@@ -29,7 +26,6 @@ module.exports.commands = [
     },
     {
         name: "devoice",
-        nArgs: 0,
         permission: "voice",
         callback: function(reply, data, args) {
             data.bot.send("MODE", data.chan, "-v", data.sender);
