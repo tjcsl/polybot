@@ -16,5 +16,6 @@ module.exports.commands = [
         permission: "admin",
         callback: function(reply, data, args) {
             run("git", ['pull'], reply);
+        }
     }
 ];
