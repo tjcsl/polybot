@@ -10,3 +10,8 @@ CREATE TABLE config (
     key VARCHAR(128),
     value VARCHAR(1024)
 );
+
+CREATE TABLE localizations (
+    key VARCHAR(128),
+    value VARCHAR(2048)
+);
