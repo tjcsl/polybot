@@ -10,7 +10,6 @@ function doParseValue(v) {
 }
 
 function setDefault(bot, channel){
-    console.log('setting default keys on ' + channel);
     if(channel in bot.channelConfig) {
         for(key in bot.config.defaultChannelConfig) {
             if (!(key in bot.channelConfig[channel])) {
@@ -20,7 +19,6 @@ function setDefault(bot, channel){
         }
     }
     else {
-        console.log('channel is not in config, copying default config');
         bot.channelConfig[channel] = bot.config.defaultChannelConfig;
     }
 }
@@ -34,12 +32,10 @@ module.exports.register = function(bot, dontAttachListeners) {
     bot.db.query('SELECT * FROM config', function(e, r) {
         if(!r) return;
         r.rows.forEach(function(data) {
-            console.log("storing " + data.channel + "," + data.key + " = " + data.value);
+            if(data.key == 'autojoin' && data.value == 'bool:true')
+                bot.join(data.channel)
             if(!(data.channel in bot.channelConfig)) bot.channelConfig[data.channel] = {};
             bot.channelConfig[data.channel][data.key] = doParseValue(data.value);
-            console.log("new config for channel:");
-            for(key in bot.channelConfig[data.channel])
-                console.log("\t" + key + ":" + bot.channelConfig[data.channel][key]);
         });
     });
     if(!dontAttachListeners){
