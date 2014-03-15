@@ -1,15 +1,15 @@
 var config = {};
 console.log("loading configuration");
 // Configuration starts here
-config.sasl = false;
-config.nick = process.env.NICK || "infinigon";
-config.channels = process.env.CHANNELS ? process.env.CHANNELS.split(",") : ["#testing"];
-config.password = process.env.NICKSERV || "";
-config.password_required = (process.env.PWREQUIRED != undefined);
-config.username = process.env.SASLUSER || "polybots";
-config.server = process.env.SERVER || "chat.freenode.net";
-config.port = process.env.IRCPORT || 6667;
-config.cmdchar = process.env.CMDCHAR || "!";
+config.sasl = true;
+config.nick = "septagon";
+config.channels = [];
+config.password = "46319cf7ccebcb9d47612323c379b8656dc38804c6";
+config.password_required = true;
+config.username = "polybots";
+config.server = "chat.freenode.net";
+config.port = 8000;
+config.cmdchar = "@";
 
 config.defaultChannelConfig = {
     globalCmdcharAllowed: true,
