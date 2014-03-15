@@ -29,11 +29,17 @@ module.exports.register = function(bot, dontAttachListeners) {
     setDefault(bot, "global");
     setDefault(bot, bot.config.nick);
     // Load settings from the DB
+    bot.autojoin = [];
+    bot.on('registered', function() {
+        bot.autojoin.forEach(function(f) {
+            bot.join(f);
+        });
+    });
     bot.db.query('SELECT * FROM config', function(e, r) {
         if(!r) return;
         r.rows.forEach(function(data) {
             if(data.key == 'autojoin' && data.value == 'bool:true')
-                bot.join(data.channel)
+                bot.autojoin.push(data.channel);
             if(!(data.channel in bot.channelConfig)) bot.channelConfig[data.channel] = {};
             bot.channelConfig[data.channel][data.key] = doParseValue(data.value);
         });
