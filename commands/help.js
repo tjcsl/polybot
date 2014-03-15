@@ -7,7 +7,7 @@ module.exports.commands = [
             }
             else {
                 if(!args[1]) {
-                    reply("Commands in package " + args[1] + ": " + Object.keys(data.bot.commands[args[1]].join(", "));
+                    reply("Commands in package " + args[1] + ": " + Object.keys(data.bot.commands[args[1]].join(", ")));
                 }
             }
         }
