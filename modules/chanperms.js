@@ -1,4 +1,4 @@
-modules.exports.register = function(bot) {
+module.exports.register = function(bot) {
     bot.channelUsers = {}
 
     bot.on('join',  function(chan) { bot.send('NAMES', chan); });
