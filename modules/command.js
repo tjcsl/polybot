@@ -30,8 +30,8 @@ function doChaining(commands, text, data, message, callback) {
 
 
 module.exports.register = function(bot) {
-    var command_pkgs = {};
-    var commands = {};
+    bot.command_pkgs = {};
+    bot.commands = {};
 
     function cmdhandler(nick, to, text, message) {
         var reply_dest = (to == bot.config.nick ? nick : to);
@@ -46,10 +46,10 @@ module.exports.register = function(bot) {
             else return;
         }
         else return;
-        doChaining(commands, text, data, message, function(text){
+        doChaining(bot.commands, text, data, message, function(text){
             text = text.split(" ");
-            if(Object.keys(commands).indexOf(text[0]) != -1) {
-                var cmd = commands[text[0]];
+            if(Object.keys(bot.commands).indexOf(text[0]) != -1) {
+                var cmd = bot.commands[text[0]];
                 if(cmd.permission){
                     bot.hasAccess(message.user, message.host, to, cmd.permission, function(a) {
                         if(!a) {
@@ -82,10 +82,10 @@ module.exports.register = function(bot) {
     require('fs').readdirSync('./commands/').forEach(function(f){
         f = f.replace('.js', '');
         console.log("loading command package " + f);
-        command_pkgs[f] = require('../commands/' + f).commands;
-        command_pkgs[f].forEach(function(cmd) {
-            if(Object.keys(commands).indexOf(cmd.name) == -1){
-                commands[cmd.name] = cmd;
+        bot.command_pkgs[f] = require('../commands/' + f).commands;
+        bot.command_pkgs[f].forEach(function(cmd) {
+            if(Object.keys(bot.commands).indexOf(cmd.name) == -1){
+                bot.commands[cmd.name] = cmd;
             }
             else{
                 console.log("warning: command " + cmd.name + " from " + f + " is already loaded in a different package");
@@ -94,7 +94,5 @@ module.exports.register = function(bot) {
         console.log("done loading command package " + f);
     });
 
-    console.log("hooking into bot.commands");
-    bot.commands = command_pkgs;
     bot.on('message', cmdhandler);
 };
