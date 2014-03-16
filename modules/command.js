@@ -1,4 +1,4 @@
-function doChaining(commands, text, data, message) {
+function doChaining(commands, text, data, message, callback) {
     /**
      * Command chaining hack. Short version:
      * 1) Find all instances where command chaining should be done.
@@ -6,30 +6,26 @@ function doChaining(commands, text, data, message) {
      */
     var re = /\{.*?\}/g;
     var matches = text.match(re);
-    if(matches == null) return text;
-    console.log("Command chaining: " + matches);
-    matches.forEach(function(match){
-        var old = match;
-        var replaceDone = false;
-        match = match.slice(1, -1).split(" ");
-        console.log("command: " + match[0])
-        if(!match[0] in commands) return;
-        var command = commands[match[0]];
-        match = match.slice(1);
-        console.log("args: " + match);
-
-        if(command.permission) return; // commands that require permission
-        // can't be done because I'm lazy
-        var done = false;
-        var reply = function(t) {
-            text = text.replace(old, t);
-            console.log("got a reply: " + t);
-            done = true;
-        };
+    if(matches == null) return callback(text);
+    var match = matches[0];
+    var old = match;
+    match = match.slice(1, -1).split(" ");
+    if(!match[0] in commands) return callback(text);
+    var command = commands[match[0]];
+    match = match.slice(1);
+    var reply = function(t) {
+        text = text.replace(old, t);
+        callback(text);
+    };
+    if(command.permission) {
+        data.bot.hasAccess(message.user, message.host, data.chan, command.permission, function(a){
+            if(!a) return callback(text);
+            command.callback(reply, data, match);
+        });
+    }
+    else {
         command.callback(reply, data, match);
-    });
-    console.log('k returning ' + text);
-    return text;
+    }
 }
 
 
@@ -50,51 +46,55 @@ module.exports.register = function(bot) {
             else return;
         }
         else return;
-        //text = doChaining(commands, text, data, message);
-        text = text.split(" ");
-        if(Object.keys(commands).indexOf(text[0]) != -1) {
-            var cmd = commands[text[0]];
-            if(cmd.permission){
-                bot.hasAccess(message.user, message.host, to, cmd.permission, function(a) {
-                    if(!a) {
-                        bot.say(nick, "You don't have the '" + cmd.permission + "' permission.");
-                    }
-                    else {
-                        text = text.slice(1);
-                        try {
-                            cmd.callback(reply, data, text);
+        doChaining(commands, text, data, message, function(text){
+            text = text.split(" ");
+            if(Object.keys(commands).indexOf(text[0]) != -1) {
+                var cmd = commands[text[0]];
+                if(cmd.permission){
+                    bot.hasAccess(message.user, message.host, to, cmd.permission, function(a) {
+                        if(!a) {
+                            bot.say(nick, "You don't have the '" + cmd.permission + "' permission.");
                         }
-                        catch(e) {
-                            reply(e);
+                        else {
+                            text = text.slice(1);
+                            try {
+                                cmd.callback(reply, data, text);
+                            }
+                            catch(e) {
+                                reply(e);
+                            }
                         }
-                    }
-                });
-            }
-            else {
-                try {
-                    cmd.callback(reply, data, text.slice(1));
+                    });
                 }
-                catch(e) {
-                    reply(e);
+                else {
+                    try {
+                        cmd.callback(reply, data, text.slice(1));
+                    }
+                    catch(e) {
+                        reply(e);
+                    }
                 }
             }
         }
-        };
-
-
-        require('fs').readdirSync('./commands/').forEach(function(f){
-            f = f.replace('.js', '');
-            console.log("loading command package " + f);
-            command_pkgs[f] = require('../commands/' + f).commands;
-            command_pkgs[f].forEach(function(cmd) {
-                if(Object.keys(commands).indexOf(cmd.name) == -1){
-                    commands[cmd.name] = cmd;
-                }
-                else{
-                    console.log("warning: command " + cmd.name + " from " + f + " is already loaded in a different package");
-                }
-            });
-            console.log("done loading command package " + f);
-        });
-        bot.on('message', cmdhandler);
     };
+
+
+    require('fs').readdirSync('./commands/').forEach(function(f){
+        f = f.replace('.js', '');
+        console.log("loading command package " + f);
+        command_pkgs[f] = require('../commands/' + f).commands;
+        command_pkgs[f].forEach(function(cmd) {
+            if(Object.keys(commands).indexOf(cmd.name) == -1){
+                commands[cmd.name] = cmd;
+            }
+            else{
+                console.log("warning: command " + cmd.name + " from " + f + " is already loaded in a different package");
+            }
+        });
+        console.log("done loading command package " + f);
+    });
+
+    console.log("hooking into bot.commands");
+    bot.commands = command_pkgs;
+    bot.on('message', cmdhandler);
+};
