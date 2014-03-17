@@ -6,7 +6,12 @@ function createAlias(d, name, target, permission) {
     d.commands[name] = {name: name, permission: permission, callback: function(reply, data, args) {
             target = target.split(" ");
             for(var i=1;i<target.length;i++){
-                if(target[i][0] == "$") target[i] = args[parseInt(target[i].slice(1))-1];
+                if(target[i][0] == "$")
+                    try{target[i] = args[parseInt(target[i].slice(1))-1];}
+                    catch(e){
+                        // probably not an integer
+                        target[i] = data[target[i].slice(1)]
+                    }
             }
             data.bot.commands[target[0]].callback(reply, data, target.slice(1));
     }};
