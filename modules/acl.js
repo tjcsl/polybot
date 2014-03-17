@@ -1,5 +1,6 @@
 module.exports.register = function(bot) {
     bot.hasAccess = function(user, host, channel, access, callback) {
+        if(access == 'admin') channel = 'global';
         if(bot.channelConfig[channel].defaultAccess.indexOf(access) != -1) return callback(true);
         var query = {
             text: "SELECT count(*) AS count FROM acl WHERE $1 LIKE username and $2 LIKE host and (channel=$3 or channel='global') and access=$4",
