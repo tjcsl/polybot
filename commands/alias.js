@@ -28,7 +28,7 @@ module.exports.commands = [
             if(args[0] == "add") {
                 createAlias(data.bot, args[1], args.slice(3).join(" "), args[2]);
             }
-            else if(args[0]) == "del") {
+            else if(args[0] == "del") {
                 deleteAlias(data.bot, args[1]);
             }
         }
