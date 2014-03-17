@@ -15,6 +15,7 @@ function createAlias(d, name, target, permission) {
             }
             data.bot.commands[target[0]].callback(reply, data, target.slice(1));
     }};
+
 }
 
 function deleteAlias(d, name) {
