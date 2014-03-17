@@ -1,10 +1,10 @@
-function createAlias(d, name, target, permission) {
+function createAlias(d, name, targt, permission) {
     d.db.query({
             text: "INSERT INTO aliases VALUES ($1, $2, $3)",
-            values: [name, target, permission]
+            values: [name, targt, permission]
     });
     d.commands[name] = {name: name, permission: permission, callback: function(reply, data, args) {
-            target = target.split(" ");
+            target = targt.split(" ");
             for(var i=1;i<target.length;i++){
                 if(target[i][0] == "$"){
                     if(data[target[i].slice(1)])
