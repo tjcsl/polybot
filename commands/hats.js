@@ -7,14 +7,20 @@ module.exports.commands = [
         name: "op",
         permission: "op",
         callback: function(reply, data, args) {
-            data.bot.send("MODE", data.chan, "+o", data.sender);
+            if(!args[0])
+                data.bot.send("MODE", data.chan, "+o", data.sender);
+            else
+                data.bot.send("MODE", data.chan, "+o", args[0]);
         }
     },
     {
         name: "deop",
         permission: "op",
         callback: function(reply, data, args) {
-            data.bot.send("MODE", data.chan, "-o", data.sender);
+            if(!args[0])
+                data.bot.send("MODE", data.chan, "-o", data.sender);
+            else
+                data.bot.send("MODE", data.chan, "-o", args[0]);
         }
     },
     {

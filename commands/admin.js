@@ -22,7 +22,19 @@ module.exports.commands = [
                     break;
                 case "eval":
                     try {
-                        reply(eval(args.join(" ")));
+                        x = eval(args.join(" "));
+                        if(util.isArray(x))
+                            reply(x.join(", "));
+                        else if(Object.prototype.toString.call(x) == "[object Object]"){
+                            var result = "{ ";
+                            for(key in x) {
+                                result += (key+"="+x[key]+" ")
+                            }
+                            result += "}";
+                            reply(result);
+                        }
+                        else reply(x);
+                        
                     }
                     catch(e) {
                         reply("Whoops! " + e);
