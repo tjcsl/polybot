@@ -33,7 +33,7 @@ module.exports.register = function(bot) {
     bot.command_pkgs = {};
     bot.commands = {};
 
-    function cmdhandler(nick, to, text, message) {
+    bot.cmdhandler = function(nick, to, text, message) {
         var reply_dest = (to == bot.config.nick ? nick : to);
         var reply = function(t) { bot.say(reply_dest, t.toString()); }
         var data = {bot: bot, sender: nick, chan: to, msg: message};
@@ -94,5 +94,5 @@ module.exports.register = function(bot) {
         console.log("done loading command package " + f);
     });
 
-    bot.on('message', cmdhandler);
+    bot.on('message', bot.cmdhandler);
 };
