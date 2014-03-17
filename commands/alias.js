@@ -10,6 +10,7 @@ function createAlias(d, name, target, permission) {
                     try{target[i] = args[parseInt(target[i].slice(1))-1];}
                     catch(e){
                         // probably not an integer
+                        console.log(target[i].slice(1));
                         target[i] = data[target[i].slice(1)]
                     }
             }
