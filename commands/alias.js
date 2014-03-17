@@ -27,9 +27,11 @@ module.exports.commands = [
         callback: function(reply, data, args) {
             if(args[0] == "add") {
                 createAlias(data.bot, args[1], args.slice(3).join(" "), args[2]);
+                reply("Alias created.");
             }
             else if(args[0] == "del") {
                 deleteAlias(data.bot, args[1]);
+                reply("Alias deleted.");
             }
         }
     }
