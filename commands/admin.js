@@ -23,7 +23,7 @@ module.exports.commands = [
                 case "eval":
                     try {
                         x = eval(args.join(" "));
-                        if(util.isArray(x))
+                        if(Array.isArray(x))
                             reply(x.join(", "));
                         else if(Object.prototype.toString.call(x) == "[object Object]"){
                             var result = "{ ";
