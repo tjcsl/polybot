@@ -2,10 +2,10 @@ module.exports.register = function(bot) {
     bot.db.query("SELECT * FROM aliases", function(e, r) {
         r.rows.forEach(function(row) {
             var name = row.name;
-            var target = row.target;
+            var targt = row.target;
             var permission = row.permission;   
             bot.commands[name] = {name: name, permission: permission, callback: function(reply, data, args) {
-                    target = target.split(" ");
+                    target = targt.split(" ");
                     for(var i=1;i<target.length;i++){
                         if(target[i][0] == "$"){
                             if(data[target[i].slice(1)])
