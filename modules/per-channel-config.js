@@ -1,4 +1,3 @@
-module.exports.dependencies = ["autoop"];
 function doParseValue(v) {
     // This function parses things like:
     // list:a,b,c,d,e
