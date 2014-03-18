@@ -1,4 +1,5 @@
 module.exports.commands = [
+    {name: "ping", callback: function(reply){reply("Pong!");}},
     {
         name: "help",
         callback: function(reply, data, args) {

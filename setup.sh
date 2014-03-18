@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "#!/bin/sh" >> start.sh
 echo "What's the name of your postgres DB? "
 read pgname
@@ -6,3 +7,4 @@ echo "node bot" >> start.sh
 echo "Creating tables...."
 psql -d $pgname < sql/default.sql
 echo "Done!"
+chmod +x start.sh

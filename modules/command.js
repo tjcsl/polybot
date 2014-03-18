@@ -1,3 +1,30 @@
+function checkPerm(check, user, host, channel, cmd, callback) {
+    if(cmd.permission){
+        check(user, host, channel, "-" + cmd.permission, function(a) {
+            if(a) return callback(false);
+            check(user, host, channel, cmd.permission, function(b) {
+                if(!b) return callback(false);
+                check(user, host, channel, "-" + cmd.name, function(c) {
+                    if(c) return callback(false);
+                    check(user, host, channel, "ignore", function(d) {
+                        if(d) return callback(false);
+                        return callback(true);
+                    });
+                });
+            });
+        });
+    }
+    else{
+        check(user, host, channel, "-" + cmd.name, function(c) { // and the anti-perm based on name
+            if(c) return callback(false);
+            check(user, host, channel, "ignore", function(d) { // check ignorance
+                if(d) return callback(false);
+                return callback(true);
+            });
+        });
+    }
+}
+
 function doChaining(commands, text, data, message, callback) {
     /**
      * Command chaining hack. Short version:
@@ -23,10 +50,10 @@ function doChaining(commands, text, data, message, callback) {
             command.callback(reply, data, match);
         });
     }
-    else {
+    else
         command.callback(reply, data, match);
-    }
 }
+
 
 
 module.exports.register = function(bot) {
@@ -42,38 +69,29 @@ module.exports.register = function(bot) {
         else if(to == bot.config.nick) text = text;
         else if(bot.channelConfig[to]){
             if (text.indexOf(bot.config.cmdchar) == 0 && bot.channelConfig[to].globalCmdcharAllowed) text = text.replace(bot.config.cmdchar, "");
-            else if(text.indexOf(bot.channelConfig[to].cmdchar) == 0 && bot.channelConfig[to].cmdcharAllowed) text = text.replace(bot.channelConfig[to].cmdchar, "");
-            else return;
+            else if(text.indexOf(bot.channelConfig[to].cmdchar) == 0 && 
+            bot.channelConfig[to].cmdcharAllowed) 
+        text = text.replace(bot.channelConfig[to].cmdchar, "");
+        else return;
         }
         else return;
         doChaining(bot.commands, text, data, message, function(text){
             text = text.split(" ");
             if(Object.keys(bot.commands).indexOf(text[0]) != -1) {
                 var cmd = bot.commands[text[0]];
-                if(cmd.permission){
-                    bot.hasAccess(message.user, message.host, to, cmd.permission, function(a) {
-                        if(!a) {
-                            bot.say(nick, "You don't have the '" + cmd.permission + "' permission.");
+                checkPerm(bot.hasAccess, message.user, message.host, to, cmd, function(a){
+                    if(!a) 
+                        bot.say(nick, "You don't have the '" + cmd.permission + "' permission.");
+                    else {
+                        text = text.slice(1);
+                        try {
+                            cmd.callback(reply, data, text);
                         }
-                        else {
-                            text = text.slice(1);
-                            try {
-                                cmd.callback(reply, data, text);
-                            }
-                            catch(e) {
-                                reply(e);
-                            }
+                        catch(e) {
+                            reply(e);
                         }
-                    });
-                }
-                else {
-                    try {
-                        cmd.callback(reply, data, text.slice(1));
                     }
-                    catch(e) {
-                        reply(e);
-                    }
-                }
+                });
             }
         });
     };

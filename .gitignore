@@ -1,3 +1,4 @@
+config.js
 start.sh
 *.swp
 .env
