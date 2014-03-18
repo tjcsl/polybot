@@ -77,22 +77,22 @@ module.exports.register = function(bot) {
         else return;
         doChaining(bot.commands, text, data, message, function(text){
             text = text.split(" ");
-            if(Object.keys(bot.commands).indexOf(text[0]) != -1) {
+            if(Object.keys(bot.commands).indexOf(text[0]) != -1) 
                 var cmd = bot.commands[text[0]];
-                checkPerm(bot.hasAccess, message.user, message.host, to, cmd, function(a){
-                    if(!a) 
-                        bot.say(nick, "You don't have the '" + cmd.permission + "' permission.");
-                    else {
-                        text = text.slice(1);
-                        try {
-                            cmd.callback(reply, data, text);
-                        }
-                        catch(e) {
-                            reply(e);
-                        }
+            else return;
+            checkPerm(bot.hasAccess, message.user, message.host, to, cmd, function(a){
+                if(!a) 
+                    bot.say(nick, "You don't have the '" + cmd.permission + "' permission.");
+                else {
+                    text = text.slice(1);
+                    try {
+                        cmd.callback(reply, data, text);
                     }
-                });
-            }
+                    catch(e) {
+                        reply(e);
+                    }
+                }
+            });
         });
     };
 
