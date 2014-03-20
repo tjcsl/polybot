@@ -1,12 +1,12 @@
-function checkPerm(check, user, host, channel, cmd, callback) {
+function checkPerm(check, nick, user, host, channel, cmd, callback) {
     if(cmd.permission){
-        check(user, host, channel, "-" + cmd.permission, function(a) {
+        check(nick, user, host, channel, "-" + cmd.permission, function(a) {
             if(a) return callback(false);
-            check(user, host, channel, cmd.permission, function(b) {
+            check(nick, user, host, channel, cmd.permission, function(b) {
                 if(!b) return callback(false);
-                check(user, host, channel, "-" + cmd.name, function(c) {
+                check(nick, user, host, channel, "-" + cmd.name, function(c) {
                     if(c) return callback(false);
-                    check(user, host, channel, "ignore", function(d) {
+                    check(nick, user, host, channel, "ignore", function(d) {
                         if(d) return callback(false);
                         return callback(true);
                     });
@@ -15,9 +15,9 @@ function checkPerm(check, user, host, channel, cmd, callback) {
         });
     }
     else{
-        check(user, host, channel, "-" + cmd.name, function(c) { // and the anti-perm based on name
+        check(nick, user, host, channel, "-" + cmd.name, function(c) { // and the anti-perm based on name
             if(c) return callback(false);
-            check(user, host, channel, "ignore", function(d) { // check ignorance
+            check(nick, user, host, channel, "ignore", function(d) { // check ignorance
                 if(d) return callback(false);
                 return callback(true);
             });
@@ -80,7 +80,7 @@ module.exports.register = function(bot) {
             if(Object.keys(bot.commands).indexOf(text[0]) != -1) 
                 var cmd = bot.commands[text[0]];
             else return;
-            checkPerm(bot.hasAccess, message.user, message.host, to, cmd, function(a){
+            checkPerm(bot.hasAccess, data.sender, message.user, message.host, to, cmd, function(a){
                 if(!a) 
                     bot.say(nick, "You don't have the '" + cmd.permission + "' permission.");
                 else {

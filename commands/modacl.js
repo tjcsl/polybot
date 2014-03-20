@@ -37,7 +37,7 @@ module.exports.commands = [
         "name": "gacl",
         permission: "aclmod",
         callback: function(reply, data, args) {
-            data.bot.hasAccess(data.msg.user, data.msg.host, "global", "aclmod", function(a){
+            data.bot.hasAccess(data.sender, data.msg.user, data.msg.host, "global", "aclmod", function(a){
                 try {
                     if(!a) return reply("You are not allowed to make global access list modifications!");
                     if(args[0] == "add") do_add_acl(data.bot.db, "global", args[1], args[2]);
